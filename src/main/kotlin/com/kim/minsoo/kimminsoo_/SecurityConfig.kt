@@ -41,13 +41,13 @@ class SecurityConfig(
                     .requestMatchers("/login", "/register").permitAll()
                     .anyRequest().permitAll()
             }
-    /*        .exceptionHandling { exceptionHandling ->
+            .exceptionHandling { exceptionHandling ->
                 exceptionHandling.authenticationEntryPoint { _, response, authException ->
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.message)
                 }
-            }*/
+            }
             .addFilterBefore(JwtTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter::class.java)
-            /*.addFilterBefore(
+            .addFilterBefore(
                 JwtAuthenticationFilter(
                     authenticationManager(),
                     jwtTokenProvider,
@@ -56,13 +56,13 @@ class SecurityConfig(
                     userRepository
                 ),
                 JwtTokenFilter::class.java
-            )*/
-     /*       .headers { headers ->
+            )
+            .headers { headers ->
                 headers
                     .contentSecurityPolicy { it.policyDirectives("default-src 'self'") }
                     .httpStrictTransportSecurity { it.includeSubDomains(true).maxAgeInSeconds(31536000) }
                     .frameOptions { it.deny() }
-            }*/
+            }
 
         return http.build()
     }
